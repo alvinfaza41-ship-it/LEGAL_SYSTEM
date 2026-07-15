@@ -1,0 +1,8 @@
+btn_pengaturan = ctk.CTkButton(
+    sidebar,
+    text="Pengaturan",
+    image=pengaturan_icon,
+    compound="left"
+)
+
+btn_pengaturan.pack(fill="x", padx=10, pady=5)

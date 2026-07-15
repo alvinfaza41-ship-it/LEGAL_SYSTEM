@@ -1,0 +1,80 @@
+import os
+import docx
+from docx.shared import Pt
+
+# 1. Membuat struktur folder LEGAL_SYSTEM/docs
+folder_path = os.path.join("LEGAL_SYSTEM", "docs")
+if not os.path.exists(folder_path):
+    os.makedirs(folder_path)
+    print(f"📁 Folder baru berhasil dibuat: {folder_path}")
+else:
+    print(f"ℹ️ Folder {folder_path} sudah ada.")
+
+# 2. Inisialisasi Dokumen Word baru
+doc = docx.Document()
+
+# Mengatur style teks dasar (Font: Arial, Ukuran: 11)
+style = doc.styles['Normal']
+font = style.font
+font.name = 'Arial'
+font.size = Pt(11)
+
+# ==========================================
+# ISI DOKUMEN SRS (Software Requirements Specification)
+# ==========================================
+
+# Judul Utama Dokumen
+doc.add_heading('Software Requirements Specification (SRS)', level=0)
+doc.add_heading('Human Capital Management System (HCMS)', level=1)
+doc.add_paragraph('Dokumen ini berfungsi sebagai pedoman teknis dan fungsional dalam pengembangan sistem.')
+
+# 1. Tujuan Aplikasi
+doc.add_heading('1. Tujuan Aplikasi', level=2)
+doc.add_paragraph('Bagian ini menjelaskan maksud utama dari pengembangan HCMS:')
+doc.add_paragraph('Mengotomatisasi pengelolaan sumber daya manusia mulai dari rekrutmen hingga masa pensiun.', style='List Bullet')
+doc.add_paragraph('Menyediakan platform terpusat untuk pelacakan kinerja, kehadiran, dan administrasi karyawan.', style='List Bullet')
+doc.add_paragraph('Meningkatkan efisiensi operasional tim HR melalui sistem swalayan karyawan (Employee Self-Service).', style='List Bullet')
+
+# 2. Pengguna (User Roles)
+doc.add_heading('2. Pengguna Sistem', level=2)
+doc.add_paragraph('Aktor atau peran yang akan berinteraksi dengan aplikasi ini meliputi:')
+doc.add_paragraph('Administrator: Pemegang hak akses penuh untuk konfigurasi sistem dan manajemen data master.', style='List Bullet')
+doc.add_paragraph('HR Officer: Pengguna yang mengelola proses rekrutmen, absensi, payroll, dan evaluasi kerja.', style='List Bullet')
+doc.add_paragraph('Karyawan (Employee): Pengguna umum yang dapat mengajukan cuti, melihat slip gaji, dan memperbarui profil mandiri.', style='List Bullet')
+doc.add_paragraph('Manajer / Atasan: Pengguna yang memiliki wewenang untuk menyetujui (approve) pengajuan dari bawahan.', style='List Bullet')
+
+# 3. Fitur Utama
+doc.add_heading('3. Fitur Utama', level=2)
+doc.add_paragraph('Modul-modul inti yang wajib diimplementasikan di dalam HCMS:')
+doc.add_paragraph('Core HR & Employee Profile: Manajemen data pribadi, riwayat jabatan, dan dokumen kontrak.', style='List Bullet')
+doc.add_paragraph('Time & Attendance Management: Pencatatan absensi, pengajuan lembur, dan manajemen kuota cuti.', style='List Bullet')
+doc.add_paragraph('Payroll & Benefit: Perhitungan gaji otomatis, tunjangan, potongan BPJS, dan PPh 21.', style='List Bullet')
+doc.add_paragraph('Performance Appraisal: Penilaian kinerja berbasis KPI atau metode 360-degree feedback.', style='List Bullet')
+
+# 4. Alur Kerja (Workflow)
+doc.add_heading('4. Alur Kerja (Workflow)', level=2)
+doc.add_paragraph('Contoh standar alur kerja pengajuan cuti karyawan:')
+doc.add_paragraph('1. Karyawan memilih tanggal dan tipe cuti melalui akun pribadi, lalu mengirim pengajuan.', style='List Number')
+doc.add_paragraph('2. Sistem mengirimkan notifikasi real-time kepada Manajer terkait via sistem/email.', style='List Number')
+doc.add_paragraph('3. Manajer meninjau sisa kuota cuti karyawan dan melakukan Approve atau Reject.', style='List Number')
+doc.add_paragraph('4. Jika disetujui, status kuota cuti di database otomatis berkurang dan HR menerima salinan laporan.', style='List Number')
+
+# 5. Struktur Database (Arsitektur Data)
+doc.add_heading('5. Spesifikasi Database', level=2)
+doc.add_paragraph('Entitas data utama yang dibutuhkan untuk mendukung fitur sistem meliputi:')
+doc.add_paragraph('Tabel Master: users, employees, departments, positions.', style='List Bullet')
+doc.add_paragraph('Tabel Transaksi: attendance_logs, leave_requests, payroll_history, performance_reviews.', style='List Bullet')
+
+# 6. Sistem Laporan (Reporting)
+doc.add_heading('6. Kebutuhan Laporan', level=2)
+doc.add_paragraph('Output data berkala yang harus dapat diekspor oleh tim HR:')
+doc.add_paragraph('Laporan Rekapitulasi Kehadiran Bulanan (Format Excel).', style='List Bullet')
+doc.add_paragraph('Slip Gaji Elektronik Karyawan (Format PDF secara otomatis).', style='List Bullet')
+doc.add_paragraph('Ringkasan Grafik Tahunan untuk Turnover Karyawan dan Demografi.', style='List Bullet')
+
+# ==========================================
+# PENYIMPANAN FILE
+# ==========================================
+file_target = os.path.join(folder_path, "SRS_HCMS.docx")
+doc.save(file_target)
+print(f"🚀 File berhasil disimpan di: {file_target}")

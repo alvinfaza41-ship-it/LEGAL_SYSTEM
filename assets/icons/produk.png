@@ -1,0 +1,8 @@
+btn_produk = ctk.CTkButton(
+    sidebar,
+    text="Produk",
+    image=produk_icon,
+    compound="left"
+)
+
+btn_produk.pack(fill="x", padx=10, pady=5)

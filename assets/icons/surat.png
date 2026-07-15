@@ -1,0 +1,8 @@
+btn_surat = ctk.CTkButton(
+    sidebar,
+    text="Surat",
+    image=surat_icon,
+    compound="left"
+)
+
+btn_surat.pack(fill="x", padx=10, pady=5)

@@ -1,0 +1,8 @@
+btn_invoice = ctk.CTkButton(
+    sidebar,
+    text="Invoice",
+    image=invoice_icon,
+    compound="left"
+)
+
+btn_invoice.pack(fill="x", padx=10, pady=5)

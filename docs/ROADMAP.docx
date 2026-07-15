@@ -1,0 +1,90 @@
+import os
+import docx
+from docx.shared import Pt, RGBColor
+from docx.enum.text import WD_ALIGN_PARAGRAPH
+
+# 1. Menentukan jalur folder docs (relatif terhadap direktori kerja)
+folder_path = "docs"
+if not os.path.exists(folder_path):
+    os.makedirs(folder_path)
+
+# 2. Inisialisasi Dokumen Word Baru
+doc = docx.Document()
+
+# Mengatur font standar dokumen (Arial, 11pt)
+style = doc.styles['Normal']
+font = style.font
+font.name = 'Arial'
+font.size = Pt(11)
+
+# ==========================================
+# ISI DOKUMEN ROADMAP
+# ==========================================
+
+# Judul Utama
+judul = doc.add_heading('Roadmap Pengembangan Sistem', level=0)
+judul.alignment = WD_ALIGN_PARAGRAPH.CENTER
+
+doc.add_heading('Halal Consultant Management System (HCMS) - v1.0', level=1)
+doc.add_paragraph('Dokumen ini memuat daftar modul inti dan tahapan prioritas pengembangan aplikasi HCMS sebagai acuan kerja tim developer.')
+
+# Bab 1: Urutan Prioritas Pengembangan
+doc.add_heading('1. Daftar Modul & Prioritas Rilis', level=2)
+doc.add_paragraph('Pengembangan dibagi menjadi 3 fase utama untuk memastikan stabilitas sistem:')
+
+# List Modul Berdasarkan Fase
+doc.add_heading('Fase 1: Fondasi Sistem & Otentikasi', level=3)
+doc.add_paragraph('Login: Sistem keamanan masuk, enkripsi kata sandi, dan pembatasan hak akses user.', style='List Bullet')
+doc.add_paragraph('Dashboard: Halaman utama yang menampilkan ringkasan grafik, total klien, dan metrik penting.', style='List Bullet')
+
+doc.add_heading('Fase 2: Manajemen Data Inti Halal', level=3)
+doc.add_paragraph('Data Klien: Pendaftaran profil pelaku usaha, riwayat kontak, dan status pengajuan sertifikasi.', style='List Bullet')
+doc.add_paragraph('Produk: Pendataan jenis produk, kategori, dan pengelompokan berdasarkan jenis industri.', style='List Bullet')
+doc.add_paragraph('Bahan: Inventarisasi bahan baku, pemeriksaan titik kritis (critical point), dan unggah dokumen pendukung.', style='List Bullet')
+doc.add_paragraph('Sertifikat Halal: Pelacakan nomor ketetapan halal, tanggal kedaluwarsa, dan pengarsipan digital.', style='List Bullet')
+
+doc.add_heading('Fase 3: Administrasi & Pelaporan', level=3)
+doc.add_paragraph('Surat: Pembuatan dokumen otomatis seperti Surat Tugas Audit, Surat Rekomendasi, dan Berita Acara.', style='List Bullet')
+doc.add_paragraph('Invoice: Sistem penagihan jasa konsultasi, pencatatan termin pembayaran, dan cetak kuitansi.', style='List Bullet')
+doc.add_paragraph('Laporan: Rekap data tahunan, ekspor ke format Excel/PDF, dan analisis performa bisnis.', style='List Bullet')
+
+# Bab 2: Tabel Matriks Pelacakan Kerja
+doc.add_heading('2. Tabel Monitoring Progres', level=2)
+doc.add_paragraph('Gunakan tabel di bawah ini untuk memperbarui status pengerjaan setiap modul:')
+
+# Membuat Tabel (10 Baris, 3 Kolom)
+table = doc.add_table(rows=10, cols=3)
+table.style = 'Light Shading Accent 1' # Menggunakan template tabel bawaan Word yang rapi
+
+# Mengisi Header Tabel
+hdr_cells = table.rows[0].cells
+hdr_cells[0].text = 'Nama Modul'
+hdr_cells[1].text = 'Target Selesai'
+hdr_cells[2].text = 'Status'
+
+# Daftar Data Modul untuk dimasukkan ke Tabel
+modul_data = [
+    ("1. Login", "Minggu 1", "Belum Mulai"),
+    ("2. Dashboard", "Minggu 1", "Belum Mulai"),
+    ("3. Data Klien", "Minggu 2", "Belum Mulai"),
+    ("4. Produk", "Minggu 2", "Belum Mulai"),
+    ("5. Bahan", "Minggu 3", "Belum Mulai"),
+    ("6. Sertifikat Halal", "Minggu 3", "Belum Mulai"),
+    ("7. Surat", "Minggu 4", "Belum Mulai"),
+    ("8. Invoice", "Minggu 4", "Belum Mulai"),
+    ("9. Laporan", "Minggu 5", "Belum Mulai"),
+]
+
+# Mengisi Baris Tabel secara Otomatis
+for i, (nama, target, status) in enumerate(modul_data):
+    row_cells = table.rows[i+1].cells
+    row_cells[0].text = nama
+    row_cells[1].text = target
+    row_cells[2].text = status
+
+# ==========================================
+# PENYIMPANAN FILE
+# ==========================================
+file_target = os.path.join(folder_path, "ROADMAP.docx")
+doc.save(file_target)
+print(f"🚀 File roadmap berhasil dibuat di: {file_target}")

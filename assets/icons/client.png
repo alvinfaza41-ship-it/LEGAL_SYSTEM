@@ -1,0 +1,8 @@
+btn_client = ctk.CTkButton(
+    sidebar,
+    text="Client",
+    image=client_icon,
+    compound="left"
+)
+
+btn_client.pack(fill="x", padx=10, pady=5)

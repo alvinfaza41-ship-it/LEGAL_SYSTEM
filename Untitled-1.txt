@@ -1,0 +1,5 @@
+print("===================================")
+print("HCMS")
+print("Halal Consultant Management System")
+print("Versi 1.0")
+print("===================================")

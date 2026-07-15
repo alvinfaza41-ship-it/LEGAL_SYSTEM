@@ -1,0 +1,8 @@
+btn_dashboard = ctk.CTkButton(
+    sidebar,
+    text="Dashboard",
+    image=dashboard_icon,
+    compound="left"
+)
+
+btn_dashboard.pack(fill="x", padx=10, pady=5)
